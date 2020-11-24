@@ -92,7 +92,7 @@ def create_account(email=None, username=None, cookie=None, fingerprint=None, ver
         "fingerprint": "",
         "username":"{}{}".format(username,tries), # this here | what line error from CLI
         # random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com'])
-        "email":random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com']),
+        "email":random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'yahoo.com', 'venstre.dk', 'facebook.com']),
         "password":"{}".format(trash_string(8)), # Need to be 6 or higher
         "invite":"null",
         "consent":True,
