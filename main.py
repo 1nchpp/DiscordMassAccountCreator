@@ -24,6 +24,7 @@ import string
 import random
 from colorama import init,Fore,Back
 import os
+from art import *
 init()
 
 
@@ -47,10 +48,15 @@ class Fore:
     UI1     = '\033[37m'
     UI2     = '\033[90m'
 
-UI = f'''
-{Fore.UI1}                                                  â•¦â• â•—â•”â• â•—
-{Fore.UI2}                                                  â• â•¦â• â•‘ â•‘
-{Fore.RED}                                                  â•©â•šâ• â•šâ• â• {Fore.RESET}
+UI = f'''                                              
+{Fore.RED} ██╗   ██╗ █████╗ ███╗   ██╗██████╗  █████╗ ███████╗███████╗ ██████╗
+{Fore.RED} ██║   ██║██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
+{Fore.RED} ██║   ██║███████║██╔██╗ ██║██║  ██║███████║███████╗█████╗  ██║     
+{Fore.RED} ╚██╗ ██╔╝██╔══██║██║╚██╗██║██║  ██║██╔══██║╚════██║██╔══╝  ██║     
+{Fore.RED} ╚████╔╝ ██║  ██║██║ ╚████║██████╔╝██║  ██║███████║███████╗╚██████╗
+{Fore.RED}  ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ {Fore.RESET}
+
+
 '''
 
 print(UI)
@@ -67,18 +73,17 @@ def trash_string(length):
 
 
 
-
-
+# We need to call this here "recaptcha_answer"
 def solve():
-    s = requests.Session()
-    captcha_id = s.post("http://2captcha.com/in.php?key={}&method=userrecaptcha&googlekey={}&pageurl={}".format(API_KEY, site_key, api_url)).text.split('|')[0]
-    recaptcha_answer = s.get("http://2captcha.com/res.php?key={}&action=get&id={}".format(API_KEY, captcha_id)).text
-    print("solving captcha...")
-    while 'CAPCHA_NOT_READY' in recaptcha_answer:
-        sleep(5)
+        s = requests.Session()
+        captcha_id = s.post("http://2captcha.com/in.php?key={}&method=userrecaptcha&googlekey={}&pageurl={}".format(API_KEY, site_key, api_url)).text.split('|')[0]
         recaptcha_answer = s.get("http://2captcha.com/res.php?key={}&action=get&id={}".format(API_KEY, captcha_id)).text
-    recaptcha_answer = recaptcha_answer.split('|')[0]
-    return recaptcha_answer
+        print("solving captcha...")
+        while 'CAPCHA_NOT_READY' in recaptcha_answer:
+            sleep(5)
+            recaptcha_answer = s.get("http://2captcha.com/res.php?key={}&action=get&id={}".format(API_KEY, captcha_id)).text
+        recaptcha_answer = recaptcha_answer.split('|')[0] 
+        return recaptcha_answer
 
 
 
@@ -92,7 +97,7 @@ def create_account(email=None, username=None, cookie=None, fingerprint=None, ver
         "fingerprint": "",
         "username":"{}{}".format(username,tries), # this here | what line error from CLI
         # random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com'])
-        "email":random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'yahoo.com', 'venstre.dk', 'facebook.com']),
+        "email":random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com']),
         "password":"{}".format(trash_string(8)), # Need to be 6 or higher
         "invite":"null",
         "consent":True,
