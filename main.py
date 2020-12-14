@@ -1,5 +1,5 @@
 # Created by Bash, Emily Black, yby1973 and 0x74ngly
-# Credit to @author Merubokkusu for recaptcha.
+# Credit to Merubokkusu for recaptcha.
 
 
 #####################################################
@@ -62,7 +62,7 @@ UI = f'''
 print(UI)
 
 
-# Prob not at use ATM we testing, maybe gonna be used later on
+# Used by solve() function #
 api_url = "https://discord.com/api/v8/auth/register"
 
 def random_string(length):
@@ -73,7 +73,6 @@ def trash_string(length):
 
 
 
-# We need to call this here "recaptcha_answer"
 def solve():
         s = requests.Session()
         captcha_id = s.post("http://2captcha.com/in.php?key={}&method=userrecaptcha&googlekey={}&pageurl={}".format(API_KEY, site_key, api_url)).text.split('|')[0]
@@ -88,25 +87,19 @@ def solve():
 
 
 #threads = 0
-#Isnt this the create account function? yes 
-# Fixed it, the none in the function | epic | NOOOOO
 def create_account(email=None, username=None, cookie=None, fingerprint=None, verbose=True):
     global success, failed, retries
     tries = 0
     jsondata = {
         "fingerprint": "",
-        "username":"{}{}".format(username,tries), # this here | what line error from CLI
-        # random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com'])
+        "username":"{}{}".format(username,tries),
         "email":random_string(random.randint(3, 16)) + '@' + random.choice(['gmail.com', 'sol.dk', 'yahoo.com', 'stramkurs.dk', 'venstre.dk', 'facebook.com']),
         "password":"{}".format(trash_string(8)), # Need to be 6 or higher
         "invite":"null",
         "consent":True,
         "date_of_birth":"2006-01-01", # won't succeed logging in if it's under 13
         "gift_card_sku_id":"null",
-        "captcha_key":solve() # So we need to let "recaptcha_answer" run and solve the recaptcha from discord.
-        # error i got, needs a captcha key :(( | I got one, but my username data fucking me | oh rip
-
-        # lets do "null" | I dont know if it should be a string? tbh
+        "captcha_key":solve()
     }
 
     headers = CaseInsensitiveDict()
@@ -131,12 +124,10 @@ def create_account(email=None, username=None, cookie=None, fingerprint=None, ver
     r = requests.post(url="https://discord.com/api/v8/auth/register",headers=headers,json=jsondata)
     if verbose == True:
         if r.status_code == 201:
-            #hot
             success += 1
             os.system(f'title [Discord Account Creator] ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
             print(Fore.GREEN + "[{}] Successfully created account".format(r.status_code) + Fore.WHITE)
         else:
-            #not hot
             lock.acquire()
             failed += 1
             os.system(f'title [Discord Account Creator] ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
