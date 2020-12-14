@@ -128,13 +128,13 @@ def create_account(email=None, username=None, cookie=None, fingerprint=None, ver
         if r.status_code == 201:
             #hot
             success += 1
-            os.system(f'title [Discord Account Creator] By Vandasec ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
+            os.system(f'title [Discord Account Creator] ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
             print(Fore.GREEN + "[{}] Successfully created account".format(r.status_code) + Fore.WHITE)
         else:
             #not hot
             lock.acquire()
             failed += 1
-            os.system(f'title [Discord Account Creator] By Vandasec ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
+            os.system(f'title [Discord Account Creator] ^| Success: {success} ^| Failed: {failed} ^| Retries: {retries}')
             print(Fore.RED + "Could not create account" + Fore.WHITE)
             print(Fore.YELLOW + "[{}] Response:".format(r.status_code), r.content, Fore.WHITE)
     tries += 1
