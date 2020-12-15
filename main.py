@@ -19,7 +19,7 @@
 import requests
 import sys
 from requests.structures import CaseInsensitiveDict
-import threading
+import threading # installed on threaded?
 import string
 import random
 from colorama import init,Fore,Back
