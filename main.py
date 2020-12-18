@@ -2,6 +2,8 @@
 # Credit to Merubokkusu for recaptcha.
 
 
+API_KEY = '' # Your 2captcha API KEY
+
 #####################################################
 #####################################################
 #####################################################
@@ -32,7 +34,6 @@ lock = threading.Lock()
 success = 0
 failed = 0
 retries = 0
-API_KEY = '' # Your 2captcha API KEY
 site_key = '6Lef5iQTAAAAAKeIvIY-DeexoO3gj7ryl9rLMEnn' 
 
 class Fore:
