@@ -2,7 +2,7 @@
  
  ## About project ##
 - Project made for learning purpose
-- Project still in development (December 2020)
+- Project still in development (January 2021)
 - Errors may occur, open a issue for erros or make a pull request with a fixed version
 - COde is very messy, didnt wanted to clean it out poggers
 
