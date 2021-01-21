@@ -28,12 +28,6 @@ from colorama import init
 from art import *
 from time import sleep
 init()
-import proxygen
-from itertools import cycle
-proxies = proxygen.get_proxies()
-proxy_pool = cycle(proxies)
-proxy = next(proxy_pool)
-
 
 lock = threading.Lock()
 success = 0
@@ -132,9 +126,7 @@ def create_account(key='', email=None, username='', cookie=None, fingerprint=Non
     headers["user-agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36"
     headers["x-fingerprint"] = "{}".format(fingerprint)
     headers["x-super-properties"] = "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzg2LjAuNDI0MC4xODMgU2FmYXJpLzUzNy4zNiIsImJyb3dzZXJfdmVyc2lvbiI6Ijg2LjAuNDI0MC4xODMiLCJvc192ZXJzaW9uIjoiMTAiLCJyZWZlcnJlciI6IiIsInJlZmVycmluZ19kb21haW4iOiIiLCJyZWZlcnJlcl9jdXJyZW50IjoiIiwicmVmZXJyaW5nX2RvbWFpbl9jdXJyZW50IjoiIiwicmVsZWFzZV9jaGFubmVsIjoic3RhYmxlIiwiY2xpZW50X2J1aWxkX251bWJlciI6NzA3ODEsImNsaWVudF9ldmVudF9zb3VyY2UiOm51bGx9"
-    r = requests.post(url="https://discord.com/api/v8/auth/register",headers=headers,
-    json=jsondata#, proxies={"http": proxy}
-    )
+    r = requests.post(url="https://discord.com/api/v8/auth/register",headers=headers,json=jsondata)
     if verbose == True:
         if r.status_code == 201:
             f = open("tokens.txt", "a")
@@ -153,7 +145,6 @@ def create_account(key='', email=None, username='', cookie=None, fingerprint=Non
 def main():
     threads = []
     for i in range(300):
-        # thread = threading.Thread(target=create_account(trash_string(random.randint(1, 2)), trash_string(random.randint(1, 150))), daemon=True)
         thread = threading.Thread(target=create_account(), daemon=True)
         threads.append(thread)
         thread.start()
